@@ -97,10 +97,10 @@ endform
         Line width... 10
         White
         select Pitch 'base$'
-        min = Get minimum... 0 0 Hertz parabolic
-        max = Get maximum... 0 0 Hertz parabolic
-        ymin = number(fixed$(min,2))
-        ymax = number(fixed$(max,2))
+        median = Get quantile... 0 0 0.50 Hertz
+        y = number(fixed$(median,2))
+        ymin = y - 500
+        ymax = y + 500
         Draw... 0 0 'ymin' 'ymax' no
 
         Line width... 6

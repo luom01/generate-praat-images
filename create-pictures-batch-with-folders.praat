@@ -13,13 +13,13 @@ spec_height = 5
 #### form
 form Create_pictures
     comment Select main folder (contains audio files within folders)
-    sentence Main_folder
+    sentence Main_folder C:\Users\plubb\Documents\Commalla\Data\P06
     comment Select folder to export PNG files
-    sentence Pictures_folder
+    sentence Pictures_folder C:\Users\plubb\Documents\Commalla\Data\P06
 endform
 
 #### script
-    # create list of folders
+    #create list of folders (vocalizations)
     Create Strings as folder list... folder_list 'main_folder$'
     numberOfFolders = Get number of strings
 
@@ -37,7 +37,6 @@ endform
         exitScript: "No files"
       endif
 
-      # create list of files
       for ifile to numberOfFiles
         select Strings mywavlist
         fileName$ = Get string... ifile
@@ -77,9 +76,8 @@ endform
         To Pitch (ac)... 0.005 'f0min' 15 no 0.03 0.1 0.01 0.35 0.14 'f0max'
         Smooth... smooth
         select Pitch 'base$'
-        #get median pitch
-        y = Get quantile... 0 0 0.50 Hertz
-        med_pitch = number(fixed$(y,2))
+        y = Get mean... 0 0 Hertz
+        avg_pitch = number(fixed$(y,2))
 
       # draw oscillogram
         Select outer viewport... 0 'picture_width' 0 'osc_height'
@@ -97,33 +95,28 @@ endform
         Line width... 10
         White
         select Pitch 'base$'
-        min = Get minimum... 0 0 Hertz parabolic
-        max = Get maximum... 0 0 Hertz parabolic
-        ymin = number(fixed$(min,2))
-        ymax = number(fixed$(max,2))
-        Draw... 0 0 'ymin' 'ymax' no
+        Draw... 0 0 'f0min' 'f0max' no
 
         Line width... 6
         Black
-        Draw... 0 0 'ymin' 'ymax' no
+        Draw... 0 0 'f0min' 'f0max' no
 
       # draw spectrogram box
         Line width... 1
         Draw inner box
-        One mark right... 'ymax' yes yes no
-        One mark right... 'ymin' yes yes no
+        One mark right... 'f0max' yes yes no
+        One mark right... 'f0min' yes yes no
         One mark bottom... 'midpoint' no yes yes
         Text left... yes Frequency (Hz)
         Text right... yes F_0 (Hz)
-        Axes: 0, 'endTime', ymin, ymax
-        Text special... 'endTime' left 'med_pitch' top Times 10 "0" 'med_pitch'
+        Axes: 0, 'endTime', vmin, vmax
+        Text special... 'endTime' left 'avg_pitch' top Times 10 "0" 'avg_pitch'
 
       # saving
         Viewport... 0 'picture_width' 0 'spec_height'
         createFolder: pictures_folder$ + "/" + folderName$
-        Save as 600-dpi PNG file: pictures_folder$ + "/" + folderName$ + "/" + base$ + ".png"
+        Save as 600-dpi PNG file: pictures_folder$ + "/" + folderName$ + "/" + folderName$ + "_" + base$ + ".png"
         Erase all
-
       # clean objects
         select all
         minus Strings mywavlist
@@ -131,7 +124,6 @@ endform
         Remove
       endfor
   endfor
-
   echo All files saved.
   selectObject: "Strings mywavlist"
   Remove
