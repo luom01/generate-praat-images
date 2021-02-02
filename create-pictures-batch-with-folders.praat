@@ -13,9 +13,9 @@ spec_height = 5
 #### form
 form Create_pictures
     comment Select main folder (contains audio files within folders)
-    sentence Main_folder C:\Users\plubb\Documents\Commalla\Data\P06
+    sentence Main_folder
     comment Select folder to export PNG files
-    sentence Pictures_folder C:\Users\plubb\Documents\Commalla\Data\P06
+    sentence Pictures_folder 
 endform
 
 #### script
@@ -115,7 +115,7 @@ endform
       # saving
         Viewport... 0 'picture_width' 0 'spec_height'
         createFolder: pictures_folder$ + "/" + folderName$
-        Save as 600-dpi PNG file: pictures_folder$ + "/" + folderName$ + "/" + folderName$ + "_" + base$ + ".png"
+        Save as 600-dpi PNG file: pictures_folder$ + "/" + folderName$ + "/" + base$ + ".png"
         Erase all
       # clean objects
         select all
