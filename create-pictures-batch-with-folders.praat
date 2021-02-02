@@ -109,7 +109,7 @@ endform
         One mark bottom... 'midpoint' no yes yes
         Text left... yes Frequency (Hz)
         Text right... yes F_0 (Hz)
-        Axes: 0, 'endTime', vmin, vmax
+        Axes: 0, 'endTime', f0min, f0max
         Text special... 'endTime' left 'avg_pitch' top Times 10 "0" 'avg_pitch'
 
       # saving
