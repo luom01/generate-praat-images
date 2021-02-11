@@ -5,7 +5,7 @@ create-pictures-selected-sound: select Sound object and run script to generate i
 
 create-pictures-batch: run script and select folder with .wav files and generate images into desired folder
 
-create-pictures-batch: if .wav files live in subfolders within a main folder, this script will generate images into respective subfolders of the same name within a desired folder
+create-pictures-batch-with-folders: if .wav files live in subfolders within a main folder, this script will generate images into respective subfolders of the same name within a desired folder
 
 
 
