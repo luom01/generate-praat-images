@@ -12,9 +12,9 @@ spec_height = 5
 #### form
 form Create_pictures
     comment Select folder containing sounds
-    sentence Sounds_folder C:\Users\plubb\Documents\Commalla\Data\P06
+    sentence Sounds_folder
     comment Select folder to export PNG files
-    sentence Pictures_folder C:\Users\plubb\Documents\Commalla\Data\P06
+    sentence Pictures_folder 
 endform
 
 #### script
